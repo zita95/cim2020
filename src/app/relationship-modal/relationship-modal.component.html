@@ -1,0 +1,83 @@
+<div *ngIf="secondLevelObjects.length > 0; else noRelations" class="modal">
+  <mat-dialog-content>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Indicator id: {{ indicatorId }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let item of secondLevelObjects, let i = index" (closed)="setClosed()">
+            <mat-expansion-panel-header class="headers-align">
+              <mat-panel-title>
+                <p><strong>Name: </strong>{{ item.name }}</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+              <p><strong>Relationship type: </strong>{{ relationships[i].relationship_type }}</p>
+              <p><strong>Name: </strong>{{ item.name }}</p>
+              <p><strong>Created: </strong>{{ item.created }}</p>
+              <p><strong>Modified: </strong>{{ item.modified }}</p>
+              <p><strong>ID: </strong>{{ item.id }}</p>
+              <p><strong>Description: </strong>{{ item.description }}</p>
+              <p><strong>Type: </strong>{{ item.type }}</p>
+              <p><strong>Object marking refs: </strong>{{ item.object_marking_refs }}</p>
+              <p *ngIf="item.labels"><strong>Labels: </strong>{{ item.labels }}</p>
+              <p *ngIf="item.identity_class"><strong>Identity class: </strong>{{ item.identity_class }}</p>
+              <p *ngIf="item.sectors"><strong>Sectors: </strong>{{ item.sectors }}</p>
+              <p *ngIf="item.created_by_ref"><strong>Created by: </strong>{{ item.created_by_ref }}</p>
+              <p *ngIf="item.definition_type"><strong>Definition type: </strong>{{ item.definition_type }}</p>
+              <p *ngIf="item.first_seen"><strong>First seen: </strong>{{ item.first_seen }}</p>
+              <p *ngIf="item.external_references"><strong>External references: </strong>{{ item.external_references }}
+              </p>
+              <p *ngIf="item.kill_chain_phases"><strong>Kill chain phases: </strong>{{ item.kill_chain_phases }}</p>
+              <p *ngIf="item.pattern"><strong>Pattern: </strong>{{ item.pattern }}</p>
+              <p *ngIf="item.valid_from"><strong>Valid from: </strong>{{ item.valid_from }}</p>
+            </div>
+            <mat-action-row>
+              <button mat-raised-button color="accent"
+                (click)="onShowMore(i)">{{ isThirdLevelVisible ? 'Hide' : 'Show' }}
+                Related Objects</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div *ngIf="isThirdLevelVisible">
+          <div *ngIf="thirdLevelObjects.length > 0; else noRelations">
+            <mat-card *ngFor="let item of thirdLevelObjects, let i = index" class="detailCards">
+              <p><strong>Relationship type: </strong>{{ secondRelations[i].relationship_type }}</p>
+              <p><strong>Name: </strong>{{ item.name }}</p>
+              <button mat-raised-button color="accent"
+                (click)="onShowThirdLevel(i)">{{ i === thirdDetailIndex ? 'Hide' : 'Show' }}</button>
+              <div *ngIf="thirdLevelDetails && i === thirdDetailIndex">
+                <p><strong>Created: </strong>{{ item.created }}</p>
+                <p><strong>Modified: </strong>{{ item.modified }}</p>
+                <p><strong>ID: </strong>{{ item.id }}</p>
+                <p><strong>Description: </strong>{{ item.description }}</p>
+                <p><strong>Type: </strong>{{ item.type }}</p>
+                <p><strong>Object marking refs: </strong>{{ item.object_marking_refs }}</p>
+                <p *ngIf="item.labels"><strong>Labels: </strong>{{ item.labels }}</p>
+                <p *ngIf="item.identity_class"><strong>Identity class: </strong>{{ item.identity_class }}</p>
+                <p *ngIf="item.sectors"><strong>Sectors: </strong>{{ item.sectors }}</p>
+                <p *ngIf="item.created_by_ref"><strong>Created by: </strong>{{ item.created_by_ref }}</p>
+                <p *ngIf="item.definition_type"><strong>Definition type: </strong>{{ item.definition_type }}</p>
+                <p *ngIf="item.first_seen"><strong>First seen: </strong>{{ item.first_seen }}</p>
+                <p *ngIf="item.external_references"><strong>External references: </strong> source name:
+                  {{ item.external_references[0].source_name }},
+                  description: {{ item.external_references[0].description }},
+                  external id: {{ item.external_references[0].external_id }},
+                  url: {{ item.external_references[0].url }}</p>
+                <p *ngIf="item.kill_chain_phases"><strong>Kill chain phases: </strong> name:
+                  {{ item.kill_chain_phases[0].kill_chain_name }},
+                  phase name: {{ item.kill_chain_phases[0].phase_name }}</p>
+                <p *ngIf="item.pattern"><strong>Pattern: </strong>{{ item.pattern }}</p>
+                <p *ngIf="item.valid_from"><strong>Valid from: </strong>{{ item.valid_from }}</p>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+</div>
+<ng-template #noRelations>
+  <p [ngStyle]="{color: 'red'}">This object has no relationships</p>
+</ng-template>

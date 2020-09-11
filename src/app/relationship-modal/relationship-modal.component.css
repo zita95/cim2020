@@ -1,0 +1,13 @@
+mat-card{
+  margin-top: 5px;
+}
+mat-expansion-panel.mat-expanded {
+  background: rgba(184, 209, 219, 0.5);
+}
+mat-expansion-panel-header.mat-expanded {
+  background: rgba(171, 196, 206, 0.5);
+}
+
+.detailCards {
+  background: rgba(184, 209, 219, 0.5);
+}

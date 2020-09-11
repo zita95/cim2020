@@ -1,0 +1,32 @@
+.wrapper{
+  margin: auto;
+  margin-top: 50px;
+  max-width: 60%
+}
+
+mat-expansion-panel{
+  margin-top: 15px;
+}
+
+mat-expansion-panel.mat-expanded {
+  background: rgba(184, 209, 219, 0.5);
+}
+mat-expansion-panel-header.mat-expanded {
+  background: rgba(171, 196, 206, 0.5);
+}
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bold{
+  font-weight: bold;
+}
+mat-card-title{
+  margin-left: auto;
+}
